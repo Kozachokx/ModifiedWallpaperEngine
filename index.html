@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Current Weather</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,900" rel="stylesheet"> 
+<script>
+
+var config = []
+let rgbAlphaTemp;
+
+function small(tm) {
+	return (tm.substr(0,tm.length-1) + "<small>" + tm.substr(tm.length-1,tm.length)+"°</small>")
+}
+
+function addZero(i) {
+	if (i < 10) {
+		i = "0" + i;
+	}
+	return i;
+}
+
+function addSpace(i) {
+	if (i < 10) {
+		i = " " + i;
+	}
+	return i;
+}
+
+
+window.wallpaperPropertyListener = {
+	applyUserProperties: function(properties) {
+
+				
+		if (properties.background) {
+			if (properties.background.value) {	
+				var prefix="img/3440x1440_"
+				var suffix=".jpg"
+				
+				if  (properties.background.value=="custom") {
+					config["colormode"] = 3;
+				}
+							
+				if (properties.background.value=="flat") {
+					config["colormode"] = 2;
+				}
+				
+				
+				if  ((properties.background.value!="custom") && (properties.background.value!="flat")) {
+					var imagePath = prefix + properties.background.value + suffix
+					config["background"] = "url('" + imagePath + "')";
+					config["colormode"] = 1;
+				}
+			}
+		}
+
+		if(properties.backgroundConfig)
+		{
+			if(properties.backgroundConfig.value)
+			{
+				config["backgroundSize"] = properties.backgroundConfig.value;
+			}
+		}
+
+		if(properties.backgroundPosition)
+		{
+			if(properties.backgroundPosition.value)
+			{
+				config["backgroundPosition"] = properties.backgroundPosition.value;
+			}
+		}
+
+		if(properties.backgroundRepeat)
+		{
+			if(properties.backgroundRepeat.value)
+			{
+				config["backgroundRepeat"] = properties.backgroundRepeat.value;
+			}
+		}
+		
+		if(properties.backgroundTint)
+		{
+			if(properties.backgroundTint.value === true) config['rgbAlpha'] = rgbAlphaTemp;
+			else if (properties.backgroundTint.value === false) {config['rgbAlpha'] = 0; properties.backgroundTintPercentage = 0;}
+		}
+
+		if(properties.fillBackgroundColor)
+		{
+			if(properties.fillBackgroundColor.value)
+			{
+				config["bgColor"]=`rgb(${properties.fillBackgroundColor.value.split(" ").map((color) => Math.floor(255 * color)).join(",")})`;			}
+		}
+	
+
+		if(properties.backgroundTintColor)
+		{
+			if(properties.backgroundTintColor.value)
+			{
+				let color = properties.backgroundTintColor.value.split(" ").map((color) => Math.floor(255 * color)).join(",");
+				config["tintColor"]=color;
+			}
+		}
+
+		if(properties.backgroundTintPercentage)
+		{
+			 if(properties.backgroundTintPercentage.value)
+			 {
+				 config['rgbAlpha']=properties.backgroundTintPercentage.value/100;
+				 rgbAlphaTemp=properties.backgroundTintPercentage.value/100;
+			}
+		}
+		
+
+		if (properties.customflatcolor) {
+			if (properties.customflatcolor.value) {
+				if (properties.customflatcolor.value != "") {
+					var c = properties.customflatcolor.value.split(' ').map(function(c) {
+                        return Math.ceil(c * 255)
+                    });
+					config["customflatcolor"]= 'rgb(' + c + ')';
+				}
+			}
+		}
+		
+	
+		if (properties.custombackground) {
+			if (properties.custombackground.value) {
+				var prefix="file:///"
+				if (properties.custombackground.value !="") {
+					var imagePath = prefix + properties.custombackground.value 
+					config["custombackground"] = "url('" + imagePath +"')";
+				} 
+			}
+		}
+
+
+
+		if (properties.owapikey) {
+			if (properties.owapikey.value) {
+				config["apikey"]=properties.owapikey.value
+			} else {
+				config["apikey"]="";
+			}
+		}
+
+		if (properties.owlang) {
+			if (properties.owlang.value) {
+				config["owlang"]=properties.owlang.value
+			} else {
+				config["owlang"]="en";
+			}
+		}
+
+		if (properties.use_weather) {
+			if (properties.use_weather.value==true) {
+				config["use_weather"]=true;
+			} else {
+				config["use_weather"]=false;
+			}
+		}		
+		
+
+		if (properties.jslocales) {
+			if (properties.jslocales.value) {
+				config["jslocales"]=properties.jslocales.value
+			} else {
+				config["jslocales"]="en-US";//it-IT en-US , uk
+			}
+		}
+
+		if (properties.coordslat) {
+			if (properties.coordslat.value) {
+				config["lat"]=properties.coordslat.value;
+			}else{
+				config["lat"]=45.65;
+			}
+		}
+
+		if (properties.coordslon) {
+			if (properties.coordslon.value) {
+				config["lon"]=properties.coordslon.value;
+			}else{
+				config["lon"]=13.78;
+			}
+		}
+
+		if (properties.showseconds) {
+			if (properties.showseconds.value == true) {
+				config["showseconds"]=true;
+			} else {
+				config["showseconds"]=false;
+			}
+		}
+
+		if (properties.z_allowdebug) {
+			if (properties.z_allowdebug.value == true) {
+				config["allow_debug"]="block";
+			} else {
+				config["allow_debug"]="none";
+			}
+		}
+
+		if (properties.generalalign) {
+			if (properties.generalalign.value) {
+				switch (properties.generalalign.value) {
+				case 1:
+					config["align"] = "left";
+					break;
+				case 2:
+					config["align"] = "center";
+					break;
+				case 3:
+					config["align"] = "right";
+					break;
+				}
+			}
+		}
+
+		if (properties.generalPosition) {
+			config["position"]=`${properties.generalPosition.value}`;
+			var v=`${properties.generalPosition.value}`;
+		}
+		if (properties.generalPositionX) {
+			config["positionX"]=`${properties.generalPositionX.value}%`;
+        }
+
+        if (properties.generalPositionY) {
+			config["positionY"]=`${properties.generalPositionY.value}%`;
+        }
+
+
+
+		if (properties.owunits){
+			if (properties.owunits.value) {
+				switch (properties.owunits.value) {
+				case 1:
+					config["owunits"] = "metric";
+					break;
+				case 2:
+					config["owunits"] = "imperial";
+					break;
+				}
+			}
+		}
+		
+	    config["coords"] = 'lat=' + config["lat"] + '&lon=' + config["lon"]
+	    redrawAll()
+	}
+}
+
+function drawWeather() {
+
+	query = 'http://api.openweathermap.org/data/2.5/weather?' + config["coords"] 
+  	query += '&appid=' + config["apikey"]
+	query += '&units=' + config["owunits"]
+	query += '&lang=' + config["owlang"]
+
+	fetch(query)  
+	.then(function(resp) { return resp.json() }) // Convert data to json
+	.then(function(data) {
+		drawWeather_basic(data);
+	})
+	.catch(function() {
+		debug ("http://api.openweathermap.org/data/2.5/weather **FAILED**")
+	});
+
+	query = 'http://api.openweathermap.org/data/2.5/onecall?' + config["coords"]
+	query += '&exclude=minutely'
+  	query += '&appid=' + config["apikey"]
+	query += '&units=' + config["owunits"]
+	query += '&lang=' + config["owlang"]
+
+	fetch(query)  
+	.then(function(resp) { return resp.json() }) // Convert data to json
+	.then(function(data) {
+		drawWeather_hourly(data);
+		drawWeather_daily(data);
+	})
+	.catch(function() {
+		debug ("http://api.openweathermap.org/data/2.5/onecall **FAILED**")
+	});
+
+}
+
+function drawWeather_basic( d ) {
+
+	var tm = d.main.temp.toFixed(1)+"";
+	var tm_min = d.main.temp_min.toFixed(1)+"";
+	var tm_max = d.main.temp_max.toFixed(1)+"";
+	var h=d.main.humidity+"%";
+	var description = d.weather[0].description; 
+	var feelslike = d.main.feels_like.toFixed(1)+"";
+	var icon="http://openweathermap.org/img/wn/" +  d.weather[0].icon + "@2x.png";
+
+	var icon= "<img src='"+icon+"'>";
+	
+	var wind = d.wind.speed;
+	
+	if (config["owunits"]=="metric") {
+		wind += "<small>m/s</small>"
+	}else{
+		wind += "<small>mph</small>"
+	}
+	
+
+	if ((d.name) && (d.sys.country)) {
+		place = "<br><small>" + d.name + " ("+d.sys.country+")</small>"
+	}else{
+		place == ""
+	}
+	
+	document.getElementById('temp').innerHTML = small(tm);
+	document.getElementById('icon').innerHTML = icon;
+	
+	document.getElementById('description').innerHTML = description + place
+	
+	info =  "<div><img src='img/wind.png'>" + wind + "</div>"
+	info += "<div><img src='img/humidity.png'>"+ h +"</div>"
+	info += "<div><img src='img/minmax.png'>"+small(tm_min) + "/" + small(tm_max)+"</div>"
+	
+	document.getElementById('info').innerHTML = info
+	
+	a =  "<small>, percepita:</small> " + small(feelslike)
+		
+
+}
+
+function drawWeather_hourly( d ) {
+
+	debug ("drawWeather_hourly()")
+
+	var dsunrise = new Date(d.current.sunrise * 1000);
+	var dsunset = new Date(d.current.sunset * 1000);
+
+	var dsunrise = dsunrise.getMinutes() + dsunrise.getHours()*60
+	var dsunset = dsunset.getMinutes() + dsunset.getHours()*60
+
+	var t="";
+	var cls="";
+
+	var i;
+	for (i=1;i<15;i+=1) {
+
+		t += "<li>";
+
+		var da = new Date(d.hourly[i].dt * 1000);
+		var damins = da.getMinutes() + da.getHours()*60;
+
+		if ((damins < dsunrise) || (damins > dsunset)) { 
+			cls=" class='notte' ";
+		}else{
+			cls=" class='giorno' ";	
+		}
+		t += "<div" + cls + ">" + da.getHours()  + ":00</div>";
+
+		var tm = d.hourly[i].temp.toFixed(1)+"";
+		t += "<div" + cls + ">" + small(tm) +"</div>";
+
+		if (d.hourly[i].rain) {
+			mm = "<div><img src='img/rain.png'>" + d.hourly[i].rain['1h'] + "</div>"
+		}else{
+			mm = "<div>&nbsp;</div>"
+		}
+
+		var icon="http://openweathermap.org/img/wn/" +  d.hourly[i].weather[0].icon + ".png";
+
+		t += "<img src='"+icon+"'>"+mm;
+		t += "</li>";
+
+	}
+
+	document.getElementById('hourly').innerHTML = t;
+}
+
+function drawWeather_daily( d ) {
+
+	debug ("drawWeather_daily()")
+
+	t="";
+
+	for (i of d.daily) {
+
+		t += "<li>";
+
+		var da = new Date(i.dt * 1000);
+		day = da.toLocaleString(config["jslocales"], { weekday: "short" });
+		
+		t += "<div>"+day+" "+da.getDate()+"/"+(da.getMonth()+1)+"</div>";
+
+		var tm = i.temp.day.toFixed(1)+"";
+		t += "<div>" + small(tm) +"</div>";
+
+		var tmin = i.temp.min.toFixed(1)+"";
+		var tmax = i.temp.max.toFixed(1)+"";
+		t += "<div>" + small(tmin) + "/" + small(tmax) +"</div>";
+
+		if (i.rain) {
+			mm = "<div><img src='img/rain.png'>" + i.rain + "</div>"
+		}else{
+			mm = "<div>&nbsp;</div>"
+		}
+
+		var icon="http://openweathermap.org/img/wn/" +  i.weather[0].icon + ".png";
+		t += "<img src='"+icon+"'>"+mm
+
+		t += "</li>";
+
+	}
+
+	document.getElementById('daily').innerHTML = t;
+
+}
+
+function drawTime(){
+
+	var objDate = new Date();
+	month = objDate.toLocaleString(config["jslocales"], { month: "long" });
+	day = objDate.toLocaleString(config["jslocales"], { weekday: "long" });
+
+	document.getElementById('data').innerHTML= day + ", " +objDate.getDate() +" "+ month;
+	
+	d=addSpace(objDate.getHours())+":"+addZero(objDate.getMinutes())+":"+addZero(objDate.getSeconds());
+
+	var i;
+
+	if ( config["showseconds"] ) {
+		for (i = 1; i < 9; i++) {
+			document.getElementById('ora'+i).innerHTML= d.substring(i-1,i)
+			document.getElementById('ora'+i).style.width = "";
+		}
+	}else{
+		for (i = 1; i < 6; i++) {
+			document.getElementById('ora'+i).innerHTML= d.substring(i-1,i)
+		}
+		for (i = 6; i < 9; i++) {
+			document.getElementById('ora'+i).innerHTML= ""
+			document.getElementById('ora'+i).style.width = 0;
+		}
+	}
+
+	if (d.substring(0,1)==" ") {
+		document.getElementById('ora1').style.width = 0;
+	}
+
+	setTimeout(drawTime, 1000);
+}
+
+
+function drawWeather_loop() {
+
+	debug ("drawWeather_loop()")
+	
+	if (config["use_weather"]) {
+		drawWeather();
+		setTimeout(drawWeather_loop, 900000);
+	}
+
+}
+
+
+
+
+
+function redrawAll(){
+
+	debug ("redrawAll()")
+	
+	drawBackground();
+	drawTime();
+
+	if (config["use_weather"]) {
+		if (config["apikey"]=="") {
+			document.getElementById('icon').innerHTML = ""
+			document.getElementById('temp').innerHTML = ""
+			document.getElementById('description').innerHTML = "enter a openweather.org api key in setup for weather display"
+			document.getElementById('info').innerHTML = ""
+			document.getElementById('hourly').innerHTML = ""
+			document.getElementById('daily').innerHTML = ""
+		}else{
+			drawWeather_loop();
+		}
+	}else{
+		document.getElementById('icon').innerHTML = ""
+		document.getElementById('temp').innerHTML = ""
+		document.getElementById('description').innerHTML = ""
+		document.getElementById('info').innerHTML = ""
+		document.getElementById('hourly').innerHTML = ""
+		document.getElementById('daily').innerHTML = ""
+	}
+
+}
+
+function drawBackground() {
+
+	document.getElementById('debug').style.display = config["allow_debug"]
+
+	document.getElementById('tutto').style.textAlign = config["align"]
+	document.getElementById('tutto').style.position = config["position"]
+	document.getElementById('tutto').style.left=config["positionX"]
+	document.getElementById('tutto').style.top=config["positionY"]
+	document.getElementById('tint').style.backgroundColor=`rgba(${config["tintColor"]},${config['rgbAlpha']})`;
+
+	var newBG = "#444"
+		
+	if (config["colormode"]) {
+		switch 	(config["colormode"]) {
+		case 1:
+			newBG=config["background"];
+			break;
+		case 2:
+			newBG=config["customflatcolor"];
+			break;
+		case 3:
+			newBG=config["custombackground"];
+			break;
+		}
+	}
+			
+	document.body.style.background = newBG+`, ${config["bgColor"]}`;
+
+	document.body.style.backgroundSize = config["backgroundSize"];
+	document.body.style.backgroundPosition = config["backgroundPosition"];
+	document.body.style.backgroundRepeat = config["backgroundRepeat"];
+	
+}
+
+function debug(text){
+	if (config["allow_debug"]) {
+		var objDate = new Date();
+		d=objDate.getHours()+":"+objDate.getMinutes()+":"+objDate.getSeconds();
+		
+		innerText = document.getElementById('debug').innerHTML
+		
+		lines = innerText.split("<br>")
+		if (lines.length > 10) {
+			first=innerText.search("<br>")
+			innerText=innerText.substr(first+4)
+		}
+
+		document.getElementById('debug').innerHTML = innerText + "<br>" + d +" "+ text 
+	}
+}
+
+
+
+</script>
+
+<style>
+html,body{
+	margin: 0px;
+	height: 100%;
+	width: 100%;
+}
+body { 	
+    padding: 0px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+#tint {
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    overflow: auto;
+    top: 0px;
+    left: 0px;
+    /* background-color: rgba(0, 0, 0, 0.5);  */
+}
+
+#tutto {
+    position: absolute;
+    top: 0%;
+    left: 56%;
+
+	padding-right: 20px;
+	padding-left: 20px;
+	text-align: right;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 400;
+	color: #fff;
+	text-shadow: .1em .1em 0 rgba(0,0,0,0.3);
+	font-size: 1.3em;
+}
+
+#ora { font-size: 5em; }
+#ora div { display: inline-block; }
+
+#ora1, #ora2, #ora4, #ora5, #ora7, #ora8 { width: 65px; }
+#ora3, #ora6 { 	width: 20px; }
+
+#icon, #temp { 	display:inline-block; }
+
+#description { 	margin-top: -10px; }
+
+#info > div  { display: inline-block }
+#info img {width: 20px }
+#info > div:nth-child(1) > img { margin-right: 5px }
+#info > div:nth-child(2) > img, 
+#info > div:nth-child(3) > img { margin-left: 20px ; margin-right: 5px ; }
+
+#data { margin-top: 0px; }
+
+#temp{
+	margin: 0 auto;
+	font-size: 2.2em;
+	text-align: right;
+	color: #fff;
+	font-size: 5em;
+}
+
+#hourly li, #daily li  {
+	display: inline-block;
+	text-align: center;
+	border-right: thin;
+	vertical-align: top
+}
+
+#hourly li div, #daily li div {
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+#hourly div:nth-child(1) { font-size: 0.6em; height: 14px}
+#hourly div:nth-child(2) { font-size: 1.1em; height: 21px }
+#hourly img:nth-child(3) { text-align: center; width:50px; height: 50px}
+#hourly div:nth-child(4) { height: 20px; font-size: 0.6em; text-align: center}
+#hourly div:nth-child(4) img { width:15px; height: 15px }
+
+#daily div:nth-child(1) { font-size: 0.6em; height: 14px}
+#daily div:nth-child(2) { font-size: 1.1em; height: 25px}
+#daily div:nth-child(3) { font-size: 0.6em; height: 14px}
+#daily img:nth-child(4) { text-align: center; width:50px; height: 50px; margin-bottom: -10px}
+#daily div:nth-child(5) { height: 20px; font-size: 0.6em; text-align: center}
+#daily div:nth-child(5) img { text-align: center; width:15px; height: 15px}
+
+ul { padding-inline-start: 0 }
+
+#hourly li { border-right-style: groove;  }
+#hourly li:last-child {border-right-style: none;}
+#daily li { border-right-style: groove;  }
+#daily li:last-child {border-right-style: none;}
+
+
+#hourly li img, #daily li img, #icon img {
+	filter: saturate(3) brightness(2);
+}
+
+p.notte { color: #BBB; }
+
+#debug {
+	background-color: white;
+	color: black;
+	text-shadow: none;
+	font-size: 1em;
+	}
+
+</style>
+
+</head>
+<body>
+<div id="tint">
+<div id="tutto">
+	<div id="ora"><div id="ora1"></div><div id="ora2"></div><div id="ora3"></div><div id="ora4"></div><div id="ora5"></div><div id="ora6"></div><div id="ora7"></div><div id="ora8"></div></div>
+	<div id="data"></div>
+	<div id="icon"></div>
+	<div id="temp"></div>
+	<div id="description"></div>
+	<div id="info"></div>
+	<ul id="hourly"></ul>
+	<ul id="daily"></ul>
+	<div id="debug"></div>
+</div>
+</div>
+</body>
+</html>

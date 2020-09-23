@@ -1,0 +1,395 @@
+{
+	"contentrating" : "Everyone",
+	"description" : "3440x1440 wallpapers included. Can use yours thu.\r\nPlease comment if you downvote, thanks.",
+	"file" : "index.html",
+	"general" : 
+	{
+		"properties" : 
+		{
+			"background" : 
+			{
+				"options" : 
+				[
+					{
+						"label" : "Custom image",
+						"value" : "custom"
+					},
+					{
+						"label" : "gray",
+						"value" : "GRAY"
+					},
+					{
+						"label" : "blue",
+						"value" : "BLUE"
+					},
+					{
+						"label" : "red",
+						"value" : "RED"
+					},
+					{
+						"label" : "brown",
+						"value" : "BROWN"
+					},
+					{
+						"label" : "green",
+						"value" : "GREEN"
+					},
+					{
+						"label" : "matte cyan",
+						"value" : "MATTE_CYAN"
+					},
+					{
+						"label" : "matte purple",
+						"value" : "MATTE_PURPLE"
+					},
+					{
+						"label" : "FLAT COLOR",
+						"value" : "flat"
+					}
+				],
+				"order" : 9,
+				"text" : "Background",
+				"type" : "combo",
+				"value" : "GRAY"
+			},
+			"backgroundConfig" : 
+			{
+				"options" : 
+				[
+					{
+						"label" : "auto",
+						"value" : "auto"
+					},
+					{
+						"label" : "cover",
+						"value" : "cover"
+					},
+					{
+						"label" : "contain",
+						"value" : "contain"
+					}
+				],
+				"order" : 10,
+				"text" : "Background size",
+				"type" : "combo",
+				"value" : "auto"
+			},
+			"backgroundPosition" : 
+			{
+				"options" : 
+				[
+					{
+						"label" : "top left",
+						"value" : "top left"
+					},
+					{
+						"label" : "top",
+						"value" : "top"
+					},
+					{
+						"label" : "top right",
+						"value" : "top right"
+					},
+					{
+						"label" : "left",
+						"value" : "left"
+					}
+					,
+					{
+						"label" : "center",
+						"value" : "center"
+					},
+					{
+						"label" : "right",
+						"value" : "right"
+					},
+					{
+						"label" : "bottom left",
+						"value" : "bottom left"
+					},
+					{
+						"label" : "bottom",
+						"value" : "bottom"
+					}
+					,
+					{
+						"label" : "bottom right",
+						"value" : "bottom right"
+					}
+				],
+				"order" : 10,
+				"text" : "Background position",
+				"type" : "combo",
+				"value" : "auto"
+			},
+			"backgroundRepeat" : 
+			{
+				"options" : 
+				[
+					{
+						"label" : "no-repeat",
+						"value" : "no-repeat"
+					},
+					{
+						"label" : "repeat",
+						"value" : "repeat"
+					},
+					{
+						"label" : "repeat-x",
+						"value" : "repeat-x"
+					},
+					{
+						"label" : "repeat-y",
+						"value" : "repeat-y"
+					},
+					{
+						"label" : "space",
+						"value" : "space"
+					}
+				],
+				"order" : 10,
+				"text" : "Background repeat",
+				"type" : "combo",
+				"value" : "no-repeat"
+			},
+			"backgroundTint":
+			{
+				"order" : 16,
+				"text" : "Background tint",
+				"type" : "bool",
+				"value" : false
+			},
+			"backgroundTintColor": {
+				"condition": "backgroundTint.value == true",
+                "editable": true,
+                "max": 100,
+                "min": 0,
+                "order": 17,
+                "text": "Background titn color",
+                "type": "color",
+                "value": "0.0 0.0 0.0"
+            },
+			"backgroundTintPercentage": {
+				"condition": "backgroundTint.value == true",
+                "editable": true,
+                "max": 100,
+                "min": 0,
+                "order": 17,
+                "text": "Background titn%",
+                "type": "slider",
+                "value": 0
+			},
+			"fillBackgroundColor": {
+                "editable": true,
+                "max": 100,
+                "min": 0,
+                "order": 16,
+                "text": "Fill back color",
+                "type": "color",
+                "value": "1.0 1.0 1.0"
+            },
+
+
+			"coordslat" : 
+			{
+				"condition" : "use_weather.value == true",
+				"order" : 35,
+				"text" : "latitude",
+				"type" : "textinput",
+				"value" : "48.9215"
+			},
+			"coordslon" : 
+			{
+				"condition" : "use_weather.value == true",
+				"order" : 50,
+				"text" : "longitude",
+				"type" : "textinput",
+				"value" : "24.7097"
+			},
+			"custombackground" : 
+			{
+				"condition" : "background.value == 'custom'",
+				"order" : 11,
+				"text" : "custom image",
+				"type" : "file"
+			},
+			"customflatcolor" : 
+			{
+				"condition" : "background.value == 'flat'",
+				"order" : 10,
+				"text" : "flat color",
+				"type" : "color",
+				"value" : "505050"
+			},
+			"generalalign" : 
+			{
+				"options" : 
+				[
+					{
+						"label" : "left",
+						"value" : 1
+					},
+					{
+						"label" : "center",
+						"value" : 2
+					},
+					{
+						"label" : "right",
+						"value" : 3
+					}
+				],
+				"order" : 19,
+				"text" : "weather alignment",
+				"type" : "combo",
+				"value" : 3
+			},
+			"generalPosition" : 
+			{
+				"options" : 
+				[
+					{
+						"label" : "Static",
+						"value" : "static"
+					},
+					{
+						"label" : "Absolute",
+						"value" : "absolute"
+					}
+				],
+				"order" : 19,
+				"text" : "weather position",
+				"type" : "combo",
+				"value" : "static"
+			},
+			"generalPositionX": {
+				"condition": "generalPosition.value == 'absolute'",
+                "editable": true,
+                "max": 100,
+                "min": 0,
+                "order": 20,
+                "text": "Horizontal Position",
+                "type": "slider",
+                "value": 50
+            },
+            "generalPositionY": {
+				"condition" : "generalPosition.value == 'absolute'",
+                "editable": true,
+                "max": 100,
+                "min": 0,
+                "order": 20,
+                "text": "Vertical Position",
+                "type": "slider",
+                "value": 50
+			},
+
+			"jslocales" : 
+			{
+				"order" : 100,
+				"text" : "js locales",
+				"type" : "textinput",
+				"value" : "en-US"
+			},
+			"owapikey" : 
+			{
+				"condition" : "use_weather.value == true",
+				"order" : 80,
+				"text" : "key",
+				"type" : "textinput",
+				"value" : "" 
+			},
+			"owlang" : 
+			{
+				"condition" : "use_weather.value == true",
+				"order" : 60,
+				"text" : "language",
+				"type" : "textinput",
+				"value" : "en"
+			},
+			"owunits" : 
+			{
+				"condition" : "use_weather.value == true",
+				"options" : 
+				[
+					{
+						"label" : "metric",
+						"value" : 1
+					},
+					{
+						"label" : "imperial",
+						"value" : 2
+					}
+				],
+				"order" : 70,
+				"text" : "units",
+				"type" : "combo",
+				"value" : 1
+			},
+			"schemecolor" : 
+			{
+				"order" : 0,
+				"text" : "ui_browse_properties_scheme_color",
+				"type" : "color",
+				"value" : "0 0 0"
+			},
+			"showseconds" : 
+			{
+				"order" : 21,
+				"text" : "show seconds",
+				"type" : "bool",
+				"value" : true
+			},
+			"title0" : 
+			{
+				"order" : 1,
+				"text" : "<br/><br/><h4><u>GENERAL LOOK&FEEL</u></h4>",
+				"type" : "text"
+			},
+			"title2" : 
+			{
+				"order" : 90,
+				"text" : "<br/><br/><h4><u>JAVASCRIPT LOCALES</u></h4><small>caution: can hang scripts if invalid<br>click on another wallpaper and back to refresh",
+				"type" : "text"
+			},
+			"title3" : 
+			{
+				"condition" : "use_weather.value == true",
+				"order" : 30,
+				"text" : "<br/><br/><h4><u>OPENWEATHER DATA</u></h4><small>visit site for your key</small>",
+				"type" : "text"
+			},
+			"title4" : 
+			{
+				"order" : 665,
+				"text" : "<br/><br/><br/>",
+				"type" : "text"
+			},
+			"use_weather" : 
+			{
+				"order" : 22,
+				"text" : "enable weather info",
+				"type" : "bool",
+				"value" : true
+			},
+			"z_allowdebug" : 
+			{
+				"order" : 666,
+				"text" : "debug window",
+				"type" : "bool",
+				"value" : false
+			},
+			"splitBackgroundAndData" : 
+			{
+				"order" : 18,
+				"text" : "<br>",
+				"type" : "text"
+			}
+		}
+	},
+	"preview" : "preview.gif",
+	"tags" : [ "Unspecified" ],
+	"title" : "ULTRAWIDE METEO-CLOCK",
+	"type" : "Web",
+	"version" : 2,
+	"visibility" : "public",
+	"workshopid" : "2137408269"
+}
