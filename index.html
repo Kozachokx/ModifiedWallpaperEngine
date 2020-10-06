@@ -200,6 +200,12 @@ window.wallpaperPropertyListener = {
 			}
 		}
 
+		if(properties.weatherContainerAlignment){
+			if(properties.weatherContainerAlignment.value){
+				config["containerAlign"] = properties.weatherContainerAlignment.value;
+			}
+		}
+
 		if (properties.generalalign) {
 			if (properties.generalalign.value) {
 				switch (properties.generalalign.value) {
@@ -494,6 +500,8 @@ function drawBackground() {
 
 	document.getElementById('debug').style.display = config["allow_debug"]
 
+	document.getElementById('weatherContainer').style.justifyContent = config["containerAlign"]
+
 	document.getElementById('tutto').style.textAlign = config["align"]
 	document.getElementById('tutto').style.position = config["position"]
 	document.getElementById('tutto').style.left=config["positionX"]
@@ -521,6 +529,8 @@ function drawBackground() {
 	document.body.style.backgroundSize = config["backgroundSize"];
 	document.body.style.backgroundPosition = config["backgroundPosition"];
 	document.body.style.backgroundRepeat = config["backgroundRepeat"];
+
+
 	
 }
 
@@ -659,18 +669,21 @@ p.notte { color: #BBB; }
 
 </head>
 <body>
+<div id="Background image" style="size: 100% 100%"></div>
 <div id="tint">
-<div id="tutto">
-	<div id="ora"><div id="ora1"></div><div id="ora2"></div><div id="ora3"></div><div id="ora4"></div><div id="ora5"></div><div id="ora6"></div><div id="ora7"></div><div id="ora8"></div></div>
-	<div id="data"></div>
-	<div id="icon"></div>
-	<div id="temp"></div>
-	<div id="description"></div>
-	<div id="info"></div>
-	<ul id="hourly"></ul>
-	<ul id="daily"></ul>
-	<div id="debug"></div>
-</div>
+	<div id="weatherContainer" style="display: flex; flex-direction: row;">
+		<div id="tutto">
+			<div id="ora"><div id="ora1"></div><div id="ora2"></div><div id="ora3"></div><div id="ora4"></div><div id="ora5"></div><div id="ora6"></div><div id="ora7"></div><div id="ora8"></div></div>
+			<div id="data"></div>
+			<div id="icon"></div>
+			<div id="temp"></div>
+			<div id="description"></div>
+			<div id="info"></div>
+			<ul id="hourly"></ul>
+			<ul id="daily"></ul>
+			<div id="debug"></div>
+		</div>
+	</div>
 </div>
 </body>
 </html>

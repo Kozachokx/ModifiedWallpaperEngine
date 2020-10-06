@@ -65,14 +65,18 @@
 						"value" : "cover"
 					},
 					{
-						"label" : "contain",
+						"label" : "contain / fit",
 						"value" : "contain"
+					},
+					{
+						"label" : "fill / stretch",
+						"value" : "100% 100%"
 					}
 				],
 				"order" : 10,
 				"text" : "Background size",
 				"type" : "combo",
-				"value" : "auto"
+				"value" : "contain"
 			},
 			"backgroundPosition" : 
 			{
@@ -120,7 +124,7 @@
 				"order" : 10,
 				"text" : "Background position",
 				"type" : "combo",
-				"value" : "auto"
+				"value" : "center"
 			},
 			"backgroundRepeat" : 
 			{
@@ -177,7 +181,7 @@
                 "order": 17,
                 "text": "Background titn%",
                 "type": "slider",
-                "value": 0
+                "value": 50
 			},
 			"fillBackgroundColor": {
                 "editable": true,
@@ -196,7 +200,7 @@
 				"order" : 35,
 				"text" : "latitude",
 				"type" : "textinput",
-				"value" : "48.9215"
+				"value" : "x.xx"
 			},
 			"coordslon" : 
 			{
@@ -204,7 +208,7 @@
 				"order" : 50,
 				"text" : "longitude",
 				"type" : "textinput",
-				"value" : "24.7097"
+				"value" : "y.yy"
 			},
 			"custombackground" : 
 			{
@@ -221,25 +225,47 @@
 				"type" : "color",
 				"value" : "505050"
 			},
+			"weatherContainerAlignment" : 
+			{
+				"options" : 
+				[
+					{
+						"label" : "Left",
+						"value" : "flex-start"
+					},
+					{
+						"label" : "Center",
+						"value" : "center"
+					},
+					{
+						"label" : "Right",
+						"value" : "flex-end"
+					}
+				],
+				"order" : 19,
+				"text" : "container alignment",
+				"type" : "combo",
+				"value" : "left"
+			},
 			"generalalign" : 
 			{
 				"options" : 
 				[
 					{
-						"label" : "left",
+						"label" : "Left",
 						"value" : 1
 					},
 					{
-						"label" : "center",
+						"label" : "Center",
 						"value" : 2
 					},
 					{
-						"label" : "right",
+						"label" : "Right",
 						"value" : 3
 					}
 				],
-				"order" : 19,
-				"text" : "weather alignment",
+				"order" : 21,
+				"text" : "weather text alignment",
 				"type" : "combo",
 				"value" : 3
 			},
@@ -257,7 +283,7 @@
 					}
 				],
 				"order" : 19,
-				"text" : "weather position",
+				"text" : "weather text position",
 				"type" : "combo",
 				"value" : "static"
 			},
@@ -333,7 +359,7 @@
 			},
 			"showseconds" : 
 			{
-				"order" : 21,
+				"order" : 22,
 				"text" : "show seconds",
 				"type" : "bool",
 				"value" : true
@@ -348,6 +374,12 @@
 			{
 				"order" : 90,
 				"text" : "<br/><br/><h4><u>JAVASCRIPT LOCALES</u></h4><small>caution: can hang scripts if invalid<br>click on another wallpaper and back to refresh",
+				"type" : "text"
+			},
+			"titleBefore3" : 
+			{
+				"order" : 18,
+				"text" : "<br/><br/><h4><u>WEATHER ALIGNMENT</u></h4>",
 				"type" : "text"
 			},
 			"title3" : 
@@ -365,7 +397,7 @@
 			},
 			"use_weather" : 
 			{
-				"order" : 22,
+				"order" : 23,
 				"text" : "enable weather info",
 				"type" : "bool",
 				"value" : true
@@ -376,13 +408,14 @@
 				"text" : "debug window",
 				"type" : "bool",
 				"value" : false
-			},
-			"splitBackgroundAndData" : 
-			{
-				"order" : 18,
-				"text" : "<br>",
-				"type" : "text"
 			}
+			// ,
+			// "splitBackgroundAndData" : 
+			// {
+			// 	"order" : 99,
+			// 	"text" : "<br>",
+			// 	"type" : "text"
+			// }
 		}
 	},
 	"preview" : "preview.gif",
