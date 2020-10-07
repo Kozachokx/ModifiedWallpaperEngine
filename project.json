@@ -200,7 +200,7 @@
 				"order" : 35,
 				"text" : "latitude",
 				"type" : "textinput",
-				"value" : "x.xx"
+				"value" : "48.9215"
 			},
 			"coordslon" : 
 			{
@@ -208,7 +208,7 @@
 				"order" : 50,
 				"text" : "longitude",
 				"type" : "textinput",
-				"value" : "y.yy"
+				"value" : "24.7097"
 			},
 			"custombackground" : 
 			{
@@ -321,7 +321,7 @@
 				"order" : 80,
 				"text" : "key",
 				"type" : "textinput",
-				"value" : "" 
+				"value" : "cdca663e4b35e2625c6f85d92dbbe5be" 
 			},
 			"owlang" : 
 			{
