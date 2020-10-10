@@ -1,6 +1,7 @@
 #____________________________________________________________________________________#
 # ModifiedWallpaperEngine
-It is a modified version, where you can use your own Wallpaper background
+It is a modified version, where you can use your own Wallpaper background, also you can:
+
 -Tint background
 -For small image use fill background color
 -Repeat image functions
