@@ -19,7 +19,8 @@ Before file replacing make a copy!!!!
 If you already have the wallpaper "ULTRAWIDE METEO-CLOCK", you can only 
 Replace 2 files: "index.html" and "project.json"
 
-You can use my guest api, if it is still avalibale
+You can use my guest api, if it is still avalibale.
+
 Weather api:
 
   cdca663e4b35e2625c6f85d92dbbe5be
