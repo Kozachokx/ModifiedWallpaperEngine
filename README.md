@@ -3,9 +3,13 @@
 It is a modified version, where you can use your own Wallpaper background, also you can:
 
 -Tint background
+
 -For small image use fill background color
+
 -Repeat image functions
+
 -Align weather container (left|center|right)
+
 -Or align weather container Static | Absolute (x,y)
 
 -Align weather text (left|center|right)
