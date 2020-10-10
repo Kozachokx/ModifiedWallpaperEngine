@@ -8,11 +8,11 @@ It is a modified version, where you can use your own Wallpaper background, also 
 
 -Repeat image functions
 
--Align weather container (left|center|right)
-
+-Align weather container (left|center|right)\n
 -Or align weather container Static | Absolute (x,y)
-
 -Align weather text (left|center|right)
+
+
 
 !! IMPORTANT !!
 Before replacing files make a copy!!!!
