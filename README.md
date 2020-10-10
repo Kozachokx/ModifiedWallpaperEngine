@@ -1,6 +1,6 @@
 #____________________________________________________________________________________#
 # ModifiedWallpaperEngine
-It is a modified version, where you can use your own Wallpaper background, also you can:
+It is a modified version of the "ULTRAWIDE METEO-CLOCK", where you can use your own Wallpaper background, also you can:
 
 -Tint background
 
